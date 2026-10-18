@@ -451,21 +451,21 @@
   </div>
 
   <nav>
-    <a href="#" class="active" onclick="showPage('beranda',this)">
+    <a href="#beranda" class="active" onclick="showPage('beranda',this);return false;">
       <span class="icon">🏠</span> Beranda
     </a>
     <div class="nav-label">Layanan</div>
-    <a href="#" onclick="showPage('curhat',this)">
+    <a href="#curhat" onclick="showPage('curhat',this);return false;">
       <span class="icon">💬</span> Tulis Curhat
     </a>
-    <a href="#" onclick="showPage('chat',this)">
+    <a href="#chat" onclick="showPage('chat',this);return false;">
       <span class="icon">🎧</span> Chat Konselor
     </a>
     <div class="nav-label">Sumber Daya</div>
-    <a href="#" onclick="showPage('artikel',this)">
+    <a href="#artikel" onclick="showPage('artikel',this);return false;">
       <span class="icon">📖</span> Artikel & Tips
     </a>
-    <a href="#" onclick="showPage('tentang',this)">
+    <a href="#tentang" onclick="showPage('tentang',this);return false;">
       <span class="icon">ℹ️</span> Tentang Kami
     </a>
   </nav>
@@ -705,14 +705,11 @@
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
     document.getElementById('page-'+id).classList.add('active');
-    // Tandai nav link aktif
+    // Tandai nav link aktif berdasarkan href
     document.querySelectorAll('nav a').forEach(a=>{
-      if(a.getAttribute('onclick') && a.getAttribute('onclick').includes("'"+id+"'")){
-        a.classList.add('active');
-      }
+      if(a.getAttribute('href') === '#'+id) a.classList.add('active');
     });
     document.getElementById('page-title').textContent = titles[id]||'';
-    // Simpan ke browser history agar tombol back berfungsi
     if(pushState){
       history.pushState({page:id}, titles[id]||'', '#'+id);
     }
