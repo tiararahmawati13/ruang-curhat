@@ -743,6 +743,16 @@
     if(el) el.classList.add('active');
     const titles={beranda:'Selamat Datang',curhat:'Tulis Curhat',chat:'Chat dengan Konselor',artikel:'Artikel & Tips',tentang:'Tentang Kami'};
     document.getElementById('page-title').textContent = titles[id]||'';
+
+    // Tampilkan Tawk.to hanya di halaman Chat Konselor
+    if(typeof Tawk_API !== 'undefined' && Tawk_API.showWidget && Tawk_API.hideWidget){
+      if(id === 'chat'){
+        Tawk_API.showWidget();
+        Tawk_API.maximize();
+      } else {
+        Tawk_API.hideWidget();
+      }
+    }
     return false;
   }
 
@@ -835,6 +845,10 @@
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+// Sembunyikan widget saat pertama load
+Tawk_API.onLoad = function(){
+  Tawk_API.hideWidget();
+};
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;
