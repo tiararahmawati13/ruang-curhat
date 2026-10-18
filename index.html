@@ -741,8 +741,11 @@
     const txt = document.getElementById('curhat-text').value.trim();
     if(!txt){alert('Tulis dulu curhatanmu ya 💙');return;}
 
+    const mood = [...document.querySelectorAll('.mood-btn.selected')].map(b=>b.textContent).join(', ');
+    const usia = document.querySelector('#page-curhat select').value;
     const anon = document.getElementById('anon-check').checked;
     const emailVal = document.getElementById('input-email') ? document.getElementById('input-email').value.trim() : '';
+
     if(!anon && !emailVal){
       alert('Mohon isi alamat emailmu ya, agar konselor bisa membalas 💙');
       document.getElementById('input-email').focus();
@@ -753,21 +756,16 @@
       document.getElementById('input-email').focus();
       return;
     }
-
-    const mood = [...document.querySelectorAll('.mood-btn.selected')].map(b=>b.textContent).join(', ');
-    const usia = document.querySelector('#page-curhat select').value;
-    const anon = document.getElementById('anon-check').checked;
     const nama = document.getElementById('input-nama') ? document.getElementById('input-nama').value.trim() : '';
-    const email = document.getElementById('input-email') ? document.getElementById('input-email').value.trim() : '';
 
     const data = {
-      _replyto: anon ? 'tiaratia743@gmail.com' : (email || 'tiaratia743@gmail.com'),
+      _replyto: anon ? 'tiaratia743@gmail.com' : (emailVal || 'tiaratia743@gmail.com'),
       _subject: '💬 Curhat Baru Masuk — Ruang Curhat BK',
       pesan: txt,
       mood: mood || 'Tidak dipilih',
       usia: usia || 'Tidak diisi',
       nama: anon ? 'Anonim' : (nama || 'Tidak diisi'),
-      email_klien: anon ? 'Anonim' : (email || 'Tidak diisi'),
+      email_klien: anon ? 'Anonim' : (emailVal || 'Tidak diisi'),
       anonim: anon ? 'Ya' : 'Tidak'
     };
 
