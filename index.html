@@ -541,7 +541,7 @@
             <input type="text" id="input-nama" placeholder="Nama panggilanmu...">
           </div>
           <div class="form-group">
-            <label>Email <span class="optional">(opsional — untuk balasan konselor)</span></label>
+            <label>Email <span style="color:var(--danger);font-size:13px">*wajib diisi</span></label>
             <input type="email" id="input-email" placeholder="contoh@email.com">
             <small style="font-size:12px;color:var(--muted);margin-top:6px;display:block">📬 Konselor akan membalas langsung ke emailmu</small>
           </div>
@@ -740,6 +740,19 @@
   async function kirimCurhat(){
     const txt = document.getElementById('curhat-text').value.trim();
     if(!txt){alert('Tulis dulu curhatanmu ya 💙');return;}
+
+    const anon = document.getElementById('anon-check').checked;
+    const emailVal = document.getElementById('input-email') ? document.getElementById('input-email').value.trim() : '';
+    if(!anon && !emailVal){
+      alert('Mohon isi alamat emailmu ya, agar konselor bisa membalas 💙');
+      document.getElementById('input-email').focus();
+      return;
+    }
+    if(!anon && emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)){
+      alert('Format email tidak valid, coba cek kembali ya 😊');
+      document.getElementById('input-email').focus();
+      return;
+    }
 
     const mood = [...document.querySelectorAll('.mood-btn.selected')].map(b=>b.textContent).join(', ');
     const usia = document.querySelector('#page-curhat select').value;
