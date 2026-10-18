@@ -593,57 +593,20 @@
 
     <!-- ── CHAT KONSELOR ── -->
     <div class="page" id="page-chat">
-      <div class="chat-wrap">
-        <div class="chat-list">
-          <div class="chat-list-header">Konselor Tersedia</div>
-          <div class="chat-item active">
-            <div class="chat-item-name"><span class="online-dot"></span>Kak Sari</div>
-            <div class="chat-item-preview">Halo, aku di sini untukmu 💙</div>
-            <div class="chat-item-time">Sekarang</div>
-          </div>
-          <div class="chat-item">
-            <div class="chat-item-name"><span class="online-dot"></span>Kak Dino</div>
-            <div class="chat-item-preview">Cerita apa saja ya, tenang...</div>
-            <div class="chat-item-time">5 mnt lalu</div>
-          </div>
-          <div class="chat-item">
-            <div class="chat-item-name">Kak Rena</div>
-            <div class="chat-item-preview">Saya akan online jam 14.00</div>
-            <div class="chat-item-time">1 jam lalu</div>
+      <div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;" >
+        <div style="padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;">
+          <div class="avatar">K</div>
+          <div>
+            <div style="font-size:15px;font-weight:600;">Konselor Ruang Curhat</div>
+            <div style="font-size:13px;color:var(--sage);">🟢 Siap membantu kamu</div>
           </div>
         </div>
-
-        <div class="chat-window">
-          <div class="chat-header">
-            <div class="avatar">S</div>
-            <div class="chat-header-info">
-              <div class="chat-header-name">Kak Sari — Konselor</div>
-              <div class="chat-header-status">🟢 Online sekarang</div>
-            </div>
-          </div>
-
-          <div class="messages" id="messages">
-            <div class="msg">
-              <div class="avatar" style="width:30px;height:30px;font-size:13px;flex-shrink:0">S</div>
-              <div>
-                <div class="bubble">Halo! Selamat datang di Ruang Curhat 💙<br>Aku Kak Sari, konselor kamu hari ini. Cerita apa saja ya, ini ruang yang aman untukmu.</div>
-                <div class="msg-time">10.00</div>
-              </div>
-            </div>
-            <div class="msg">
-              <div class="avatar" style="width:30px;height:30px;font-size:13px;flex-shrink:0">S</div>
-              <div>
-                <div class="bubble">Kamu tidak perlu terburu-buru. Mulai dari mana yang terasa nyaman. 😊</div>
-                <div class="msg-time">10.01</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-input">
-            <textarea id="chat-msg" placeholder="Ketik pesanmu..." rows="1" onkeydown="handleEnter(event)"></textarea>
-            <button class="btn btn-primary" onclick="kirimChat()">Kirim</button>
-          </div>
-        </div>
+        <iframe
+          src="https://tawk.to/chat/6ad4e6696ba58934c2e23a4a/1k57q83or"
+          style="width:100%;height:620px;border:none;"
+          title="Chat dengan Konselor"
+          allow="microphone; camera">
+        </iframe>
       </div>
     </div>
 
@@ -744,15 +707,7 @@
     const titles={beranda:'Selamat Datang',curhat:'Tulis Curhat',chat:'Chat dengan Konselor',artikel:'Artikel & Tips',tentang:'Tentang Kami'};
     document.getElementById('page-title').textContent = titles[id]||'';
 
-    // Tampilkan Tawk.to hanya di halaman Chat Konselor
-    if(typeof Tawk_API !== 'undefined' && Tawk_API.showWidget && Tawk_API.hideWidget){
-      if(id === 'chat'){
-        Tawk_API.showWidget();
-        Tawk_API.maximize();
-      } else {
-        Tawk_API.hideWidget();
-      }
-    }
+
     return false;
   }
 
@@ -845,7 +800,7 @@
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-// Sembunyikan widget saat pertama load
+// Sembunyikan widget mengambang permanen — chat sudah di dalam halaman
 Tawk_API.onLoad = function(){
   Tawk_API.hideWidget();
 };
