@@ -699,17 +699,34 @@
 </div><!-- /main -->
 
 <script>
-  function showPage(id, el){
+  const titles={beranda:'Selamat Datang',curhat:'Tulis Curhat',chat:'Chat dengan Konselor',artikel:'Artikel & Tips',tentang:'Tentang Kami'};
+
+  function showPage(id, el, pushState=true){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
     document.getElementById('page-'+id).classList.add('active');
-    if(el) el.classList.add('active');
-    const titles={beranda:'Selamat Datang',curhat:'Tulis Curhat',chat:'Chat dengan Konselor',artikel:'Artikel & Tips',tentang:'Tentang Kami'};
+    // Tandai nav link aktif
+    document.querySelectorAll('nav a').forEach(a=>{
+      if(a.getAttribute('onclick') && a.getAttribute('onclick').includes("'"+id+"'")){
+        a.classList.add('active');
+      }
+    });
     document.getElementById('page-title').textContent = titles[id]||'';
-
-
+    // Simpan ke browser history agar tombol back berfungsi
+    if(pushState){
+      history.pushState({page:id}, titles[id]||'', '#'+id);
+    }
     return false;
   }
+
+  // Tangani tombol back/forward browser
+  window.addEventListener('popstate', function(e){
+    const id = e.state ? e.state.page : 'beranda';
+    showPage(id, null, false);
+  });
+
+  // Set halaman awal di history
+  history.replaceState({page:'beranda'}, 'Selamat Datang', '#beranda');
 
   // Anon toggle
   document.getElementById('anon-check').addEventListener('change',function(){
